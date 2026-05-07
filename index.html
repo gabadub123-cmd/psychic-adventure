@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GOY STREET — Clothing for the Chronically Online</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:          #111111;
+      --canvas:       #ffffff;
+      --soft-cloud:   #f5f5f5;
+      --charcoal:     #39393b;
+      --mute:         #707072;
+      --stone:        #9e9ea0;
+      --hairline:     #cacacb;
+      --hairline-soft:#e5e5e5;
+      --sale:         #d30005;
+
+      --font-display: 'Bebas Neue', 'Arial Black', sans-serif;
+      --font-body:    'Inter', Helvetica, Arial, sans-serif;
+
+      --r-pill: 9999px;
+      --r-lg:   30px;
+      --r-md:   24px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--canvas);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* ─── UTILITY BAR ─── */
+    .utility-bar {
+      background: var(--soft-cloud);
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      border-bottom: 1px solid var(--hairline-soft);
+    }
+    .utility-bar a { color: var(--ink); text-decoration: none; }
+    .utility-bar a:hover { text-decoration: underline; }
+    .utility-links { display: flex; gap: 24px; }
+
+    /* ─── PRIMARY NAV ─── */
+    nav.primary-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--canvas);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      border-bottom: 1px solid var(--hairline-soft);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 28px;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding-bottom: 2px;
+    }
+    .nav-links a:hover { border-bottom: 2px solid var(--ink); }
+
+    .nav-actions { display: flex; align-items: center; gap: 16px; }
+    .nav-actions a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-cart {
+      background: var(--ink);
+      color: var(--canvas) !important;
+      padding: 8px 20px;
+      border-radius: var(--r-pill);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none !important;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: var(--ink);
+      color: var(--canvas);
+      padding: 96px 48px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      gap: 48px;
+      min-height: 560px;
+    }
+
+    .hero-copy { display: flex; flex-direction: column; justify-content: flex-end; }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 16px;
+    }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(72px, 8vw, 120px);
+      line-height: 0.92;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--stone);
+      max-width: 400px;
+      line-height: 1.5;
+      margin-bottom: 40px;
+    }
+
+    .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--canvas);
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 500;
+      padding: 14px 32px;
+      border-radius: var(--r-pill);
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+
+    .btn-secondary {
+      display: inline-block;
+      background: transparent;
+      color: var(--canvas);
+      font-size: 16px;
+      font-weight: 500;
+      padding: 13px 31px;
+      border-radius: var(--r-pill);
+      border: 1px solid rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: border-color 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--canvas); }
+
+    /* Hero right — stat block */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .stat {
+      background: rgba(255,255,255,0.04);
+      padding: 32px;
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 56px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label { font-size: 13px; color: var(--stone); font-weight: 500; line-height: 1.4; }
+
+    /* ─── SECTION COMMON ─── */
+    section { padding: 64px 48px; }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+    .section-title {
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+    .section-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: underline;
+    }
+
+    /* ─── PRODUCT GRID ─── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .product-card { cursor: pointer; }
+
+    .product-card-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: var(--soft-cloud);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 8px;
+    }
+
+    /* Placeholder art using CSS only */
+    .product-card-img .art {
+      font-family: var(--font-display);
+      font-size: 48px;
+      color: rgba(0,0,0,0.08);
+      letter-spacing: 0.04em;
+      text-align: center;
+      padding: 16px;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .badge-new {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: var(--r-pill);
+    }
+    .badge-hot {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--ink);
+      color: var(--canvas);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: var(--r-pill);
+    }
+
+    .product-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .product-type {
+      font-size: 13px;
+      color: var(--mute);
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+    .product-price {
+      font-size: 15px;
+      font-weight: 500;
+    }
+    .price-sale { color: var(--sale); }
+    .price-original {
+      text-decoration: line-through;
+      color: var(--stone);
+      margin-left: 6px;
+    }
+
+    /* Different tinted placeholder backgrounds */
+    .p1 { background: #f0f0f0; }
+    .p2 { background: #e8e8e8; }
+    .p3 { background: #ebebeb; }
+    .p4 { background: #f2f2f2; }
+    .p5 { background: #e5e5e5; }
+    .p6 { background: #eaeaea; }
+    .p7 { background: #eeeeee; }
+    .p8 { background: #e2e2e2; }
+
+    /* ─── CAMPAIGN BANNER ─── */
+    .campaign-banner {
+      background: var(--ink);
+      color: var(--canvas);
+      padding: 80px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .campaign-banner::after {
+      content: 'GS';
+      position: absolute;
+      right: 48px;
+      bottom: -24px;
+      font-family: var(--font-display);
+      font-size: 320px;
+      line-height: 1;
+      color: rgba(255,255,255,0.03);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .campaign-eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--stone);
+    }
+    .campaign-headline {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 6vw, 96px);
+      line-height: 0.92;
+      text-transform: uppercase;
+      max-width: 900px;
+    }
+    .campaign-sub {
+      font-size: 16px;
+      color: var(--stone);
+      max-width: 480px;
+      line-height: 1.6;
+    }
+    .btn-primary-inv {
+      display: inline-block;
+      background: var(--canvas);
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 500;
+      padding: 14px 32px;
+      border-radius: var(--r-pill);
+      text-decoration: none;
+    }
+    .btn-primary-inv:hover { opacity: 0.88; }
+
+    /* ─── CATEGORY STRIP ─── */
+    .category-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .cat-card {
+      background: var(--soft-cloud);
+      aspect-ratio: 3 / 4;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      text-decoration: none;
+      color: var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cat-card::before {
+      content: attr(data-icon);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+      font-family: var(--font-display);
+      font-size: 88px;
+      line-height: 1;
+      color: rgba(0,0,0,0.06);
+      user-select: none;
+    }
+
+    .cat-card:hover .cat-name { text-decoration: underline; }
+    .cat-name {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
+    }
+    .cat-count { font-size: 13px; color: var(--mute); position: relative; z-index: 1; }
+
+    /* ─── WHY US ─── */
+    .why-section {
+      background: var(--soft-cloud);
+      padding: 64px 48px;
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--hairline);
+      border: 1px solid var(--hairline);
+    }
+    .why-item {
+      background: var(--soft-cloud);
+      padding: 48px 40px;
+    }
+    .why-num {
+      font-family: var(--font-display);
+      font-size: 64px;
+      line-height: 1;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .why-title {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .why-desc {
+      font-size: 15px;
+      color: var(--charcoal);
+      line-height: 1.6;
+    }
+
+    /* ─── MARQUEE ─── */
+    .marquee-wrap {
+      background: var(--ink);
+      padding: 20px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-track {
+      display: inline-block;
+      animation: marquee 22s linear infinite;
+    }
+    .marquee-track span {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--canvas);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0 40px;
+    }
+    .marquee-track span.dot {
+      color: var(--stone);
+      padding: 0;
+    }
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ─── NEWSLETTER ─── */
+    .newsletter-section {
+      padding: 80px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 24px;
+      border-top: 1px solid var(--hairline);
+    }
+    .newsletter-headline {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 72px);
+      line-height: 0.95;
+      text-transform: uppercase;
+    }
+    .newsletter-sub {
+      font-size: 16px;
+      color: var(--mute);
+      max-width: 420px;
+    }
+    .newsletter-form {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .newsletter-input {
+      background: var(--soft-cloud);
+      border: none;
+      outline: none;
+      border-radius: var(--r-md);
+      padding: 14px 20px;
+      font-size: 15px;
+      font-family: var(--font-body);
+      width: 280px;
+      color: var(--ink);
+    }
+    .newsletter-input::placeholder { color: var(--stone); }
+    .newsletter-input:focus {
+      background: var(--canvas);
+      outline: 2px solid var(--ink);
+    }
+    .newsletter-btn {
+      background: var(--ink);
+      color: var(--canvas);
+      border: none;
+      border-radius: var(--r-pill);
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 500;
+      font-family: var(--font-body);
+      cursor: pointer;
+    }
+    .newsletter-btn:hover { opacity: 0.85; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--hairline);
+      padding: 48px 48px 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .nav-logo { font-size: 24px; display: block; margin-bottom: 16px; }
+    .footer-tagline { font-size: 14px; color: var(--mute); line-height: 1.6; max-width: 240px; }
+
+    .footer-col-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--mute);
+      text-decoration: none;
+    }
+    .footer-links a:hover { color: var(--ink); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--hairline);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-legal {
+      font-size: 11px;
+      color: var(--stone);
+      letter-spacing: 0.01em;
+    }
+    .footer-legal a { color: var(--stone); text-decoration: none; }
+    .footer-legal a:hover { text-decoration: underline; }
+    .footer-socials { display: flex; gap: 20px; }
+    .footer-socials a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--mute);
+      text-decoration: none;
+    }
+    .footer-socials a:hover { color: var(--ink); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-stats { display: none; }
+      .category-strip { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      nav.primary-nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .utility-bar { padding: 0 24px; }
+      .utility-links { display: none; }
+      section, .campaign-banner, .why-section, .newsletter-section { padding: 48px 24px; }
+      footer { padding: 40px 24px 24px; }
+      .hero { padding: 64px 24px 56px; }
+      .hero-headline { font-size: clamp(56px, 15vw, 80px); }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .category-strip { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .newsletter-form { flex-direction: column; width: 100%; }
+      .newsletter-input { width: 100%; }
+      .newsletter-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Utility Bar -->
+  <div class="utility-bar">
+    <span>Free shipping on orders over $69 — no cap 🧢</span>
+    <div class="utility-links">
+      <a href="#">Track Order</a>
+      <a href="#">FAQ</a>
+      <a href="#">Sign In</a>
+    </div>
+  </div>
+
+  <!-- Primary Nav -->
+  <nav class="primary-nav">
+    <a href="#" class="nav-logo">GOY STREET</a>
+    <ul class="nav-links">
+      <li><a href="#new-drops">New Drops</a></li>
+      <li><a href="#categories">Clothing</a></li>
+      <li><a href="#collections">Collections</a></li>
+      <li><a href="#">Sale</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#">Search</a>
+      <a href="#" class="nav-cart">Cart (0)</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" style="padding-top:96px;">
+    <div class="hero-copy">
+      <p class="hero-eyebrow">Spring / Summer 2025 — New Collection</p>
+      <h1 class="hero-headline">Dress<br>Like You<br>Know.</h1>
+      <p class="hero-sub">Streetwear for the terminally online. No algorithms were harmed in the making of these fits.</p>
+      <div class="hero-ctas">
+        <a href="#new-drops" class="btn-primary">Shop New Drops</a>
+        <a href="#collections" class="btn-secondary">View All</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">420</div>
+        <div class="stat-label">Different fits<br>to get ratio'd in</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">69K</div>
+        <div class="stat-label">Satisfied<br>customers</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">0</div>
+        <div class="stat-label">Times we've<br>touched grass</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Meme<br>potential</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>New Drops</span><span class="dot">·</span>
+      <span>Free Returns</span><span class="dot">·</span>
+      <span>Based Fits</span><span class="dot">·</span>
+      <span>No Larp Zone</span><span class="dot">·</span>
+      <span>Touch Grass Optional</span><span class="dot">·</span>
+      <span>Chronically Online</span><span class="dot">·</span>
+      <span>Sigma Approved</span><span class="dot">·</span>
+      <span>New Drops</span><span class="dot">·</span>
+      <span>Free Returns</span><span class="dot">·</span>
+      <span>Based Fits</span><span class="dot">·</span>
+      <span>No Larp Zone</span><span class="dot">·</span>
+      <span>Touch Grass Optional</span><span class="dot">·</span>
+      <span>Chronically Online</span><span class="dot">·</span>
+      <span>Sigma Approved</span><span class="dot">·</span>
+    </div>
+  </div>
+
+  <!-- New Drops -->
+  <section id="new-drops">
+    <div class="section-header">
+      <h2 class="section-title">New Drops</h2>
+      <a href="#" class="section-link">See All</a>
+    </div>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <div class="product-card-img p1">
+          <div class="art">GS</div>
+          <span class="badge-hot">Hot</span>
+        </div>
+        <div class="product-name">Skill Issue Classic Tee</div>
+        <div class="product-type">Men's / Women's T-Shirt</div>
+        <div class="product-price">$34.99</div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-img p2">
+          <div class="art">NPC</div>
+          <span class="badge-new">Just In</span>
+        </div>
+        <div class="product-name">NPC Mode Hoodie</div>
+        <div class="product-type">Unisex Hoodie</div>
+        <div class="product-price">$68.00</div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-img p3">
+          <div class="art">W</div>
+          <span class="badge-hot">Best Seller</span>
+        </div>
+        <div class="product-name">Main Character Crewneck</div>
+        <div class="product-type">Unisex Sweatshirt</div>
+        <div class="product-price">
+          <span class="price-sale">$49.99</span>
+          <span class="price-original">$65.00</span>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-img p4">
+          <div class="art">gg</div>
+          <span class="badge-new">Just In</span>
+        </div>
+        <div class="product-name">Touch Grass Tee</div>
+        <div class="product-type">Men's / Women's T-Shirt</div>
+        <div class="product-price">$29.99</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Campaign Banner -->
+  <div class="campaign-banner" id="collections">
+    <p class="campaign-eyebrow">Collection — SS25</p>
+    <h2 class="campaign-headline">The Internet<br>Called. It Wants<br>Its Drip Back.</h2>
+    <p class="campaign-sub">Drop everything (especially your standards). Our SS25 collection is here and it slaps harder than a Discord moderator with a grudge.</p>
+    <a href="#categories" class="btn-primary-inv">Shop the Collection</a>
+  </div>
+
+  <!-- Categories -->
+  <section id="categories">
+    <div class="section-header">
+      <h2 class="section-title">Shop by Vibe</h2>
+    </div>
+    <div class="category-strip">
+      <a class="cat-card" href="#" data-icon="TEE">
+        <span class="cat-name">T-Shirts</span>
+        <span class="cat-count">42 styles</span>
+      </a>
+      <a class="cat-card" href="#" data-icon="HD" style="background:#e8e8e8;">
+        <span class="cat-name">Hoodies & Crewnecks</span>
+        <span class="cat-count">28 styles</span>
+      </a>
+      <a class="cat-card" href="#" data-icon="CAP" style="background:#ededed;">
+        <span class="cat-name">Headwear</span>
+        <span class="cat-count">16 styles</span>
+      </a>
+      <a class="cat-card" href="#" data-icon="ACC" style="background:#e5e5e5;">
+        <span class="cat-name">Accessories</span>
+        <span class="cat-count">19 styles</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- More Products -->
+  <section>
+    <div class="section-header">
+      <h2 class="section-title">Trending Now</h2>
+      <a href="#" class="section-link">See All</a>
+    </div>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <div class="product-card-img p5">
+          <div class="art">Σ</div>
+        </div>
+        <div class="product-name">Certified Sigma Cap</div>
+        <div class="product-type">Structured 6-Panel</div>
+        <div class="product-price">$26.99</div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-img p6">
+          <div class="art">L</div>
+          <span class="badge-new">Just In</span>
+        </div>
+        <div class="product-name">Ratio'd Joggers</div>
+        <div class="product-type">Unisex Sweatpants</div>
+        <div class="product-price">$54.99</div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-img p7">
+          <div class="art">GM</div>
+        </div>
+        <div class="product-name">Doomer Aesthetic Hoodie</div>
+        <div class="product-type">Heavyweight Hoodie</div>
+        <div class="product-price">
+          <span class="price-sale">$59.99</span>
+          <span class="price-original">$78.00</span>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-img p8">
+          <div class="art">OK</div>
+          <span class="badge-hot">Collab</span>
+        </div>
+        <div class="product-name">Just Vibing Long-Sleeve</div>
+        <div class="product-type">Unisex Long Sleeve</div>
+        <div class="product-price">$44.00</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Why Us -->
+  <div class="why-section">
+    <div class="section-header">
+      <h2 class="section-title">Why Goy Street?</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-num">01</div>
+        <div class="why-title">Memes Age. Quality Doesn't.</div>
+        <div class="why-desc">We source premium blanks so your shirt outlasts the trend cycle. Your grandkids will ask about the Skill Issue Tee with genuine respect.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">02</div>
+        <div class="why-title">Ships in 3–5 Business Days</div>
+        <div class="why-desc">No vague "4–6 weeks" nonsense. We know you need that hoodie before the next big event that you'll attend in a semi-ironic capacity.</div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">03</div>
+        <div class="why-title">Free Returns. No Drama.</div>
+        <div class="why-desc">Wrong size? Changed your vibe? We get it. Return for free within 30 days, no questions, no passive-aggressive emails. We're normal here.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Newsletter -->
+  <section class="newsletter-section">
+    <p style="font-size:13px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:var(--mute);">The Goy Street List</p>
+    <h2 class="newsletter-headline">Get Early Access<br>Before the Normies Do</h2>
+    <p class="newsletter-sub">Drop notifications, exclusive sales, and the occasional shitpost. Unsubscribe anytime (skill issue if you do).</p>
+    <div class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="your@email.com" />
+      <button class="newsletter-btn">Subscribe</button>
+    </div>
+    <p style="font-size:12px; color:var(--stone);">No spam. We have better things to do.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">GOY STREET</a>
+        <p class="footer-tagline">Clothing for the chronically online. Based somewhere between irony and genuine self-expression.</p>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Shop</p>
+        <ul class="footer-links">
+          <li><a href="#">New Drops</a></li>
+          <li><a href="#">T-Shirts</a></li>
+          <li><a href="#">Hoodies</a></li>
+          <li><a href="#">Headwear</a></li>
+          <li><a href="#">Accessories</a></li>
+          <li><a href="#">Sale</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Help</p>
+        <ul class="footer-links">
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Track Order</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Company</p>
+        <ul class="footer-links">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Wholesale</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Affiliates</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-legal">
+        © 2025 Goy Street ·
+        <a href="#">Privacy Policy</a> ·
+        <a href="#">Terms of Service</a> ·
+        <a href="#">Cookie Settings</a>
+      </p>
+      <div class="footer-socials">
+        <a href="#">Instagram</a>
+        <a href="#">Twitter / X</a>
+        <a href="#">TikTok</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
